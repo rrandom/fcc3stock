@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('stockStreamApp'));
+  beforeEach(module('fcc3StockStreamApp'));
   beforeEach(module('socketMock'));
 
   var MainCtrl,

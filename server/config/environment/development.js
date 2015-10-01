@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/stockstream-dev'
+    uri: 'mongodb://localhost/fcc3stockstream-dev'
   },
 
   seedDB: true

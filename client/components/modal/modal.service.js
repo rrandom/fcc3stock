@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stockStreamApp')
+angular.module('fcc3StockStreamApp')
   .factory('Modal', function ($rootScope, $modal) {
     /**
      * Opens a modal

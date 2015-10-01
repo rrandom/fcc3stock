@@ -5,6 +5,6 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/stockstream-test'
+    uri: 'mongodb://localhost/fcc3stockstream-test'
   }
 };

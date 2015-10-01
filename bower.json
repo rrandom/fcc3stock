@@ -1,5 +1,5 @@
 {
-  "name": "stock-stream",
+  "name": "fcc3-stock-stream",
   "version": "0.0.0",
   "dependencies": {
     "angular": ">=1.2.*",

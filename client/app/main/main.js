@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stockStreamApp')
+angular.module('fcc3StockStreamApp')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
