@@ -8,8 +8,7 @@ angular.module('fcc3StockStreamApp')
       startDate = year + '-01-01',
       endDate = date.toLocaleDateString().split('/').join('-');
 
-    var quandlAPI = 'https://www.quandl.com/api/v1/datasets/WIKI/',
-      quandlAuthToken = 'PwyZscKorv3wCa-dEbtX';
+    var quandlAPI = 'https://www.quandl.com/api/v1/datasets/WIKI/';
 
     function refreshChart() {
       $('#chart').highcharts({
@@ -83,8 +82,7 @@ angular.module('fcc3StockStreamApp')
           sort_order: 'asc',
           exclude_headers: true,
           trim_start: startDate,
-          trim_end: endDate,
-          auth_token: quandlAuthToken
+          trim_end: endDate
         }
       }).success(function (stockData) {
         var newStockInfo = {
