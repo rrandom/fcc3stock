@@ -5,7 +5,10 @@ var mongoose = require('mongoose'),
 
 var StockSchema = new Schema({
   name: String,
-  info: String,
+  type: String,
+  data: Array,
+  marker: Object,
+  color: String,
   active: Boolean
 });
 
