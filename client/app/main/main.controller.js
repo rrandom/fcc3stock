@@ -11,43 +11,28 @@ angular.module('fcc3StockStreamApp')
     var quandlAPI = 'https://www.quandl.com/api/v1/datasets/WIKI/',
       quandlAuthToken = 'PwyZscKorv3wCa-dEbtX';
 
-    function showStocks() {
-      $http.get('/api/stocks/').success(function (stocks) {
-        $scope.stocks = stocks;
-        socket.syncUpdates('stock', $scope.stocks, function (event, stock, stocks) {
-          setTimeout(function () {
-            $scope.refreshChart();
-          }, 500);
-        });
-        $scope.refreshChart();
-      });
-    }
-
-    // need to remove more code
-    $scope.stocks = [];
-
-    $scope.refreshChart = function () {
+    function refreshChart() {
       $('#chart').highcharts({
         chart: {
           type: 'line',
-          alignTicks: false,
+          alignTicks: false
         },
         navigator: {
-          enabled: !1
+          enabled: false
         },
         rangeSelector: {
-          enabled: !1
+          enabled: false
         },
         exporting: {
-          enabled: !1
+          enabled: false
         },
         scrollbar: {
-          enabled: !1
+          enabled: false
         },
         legend: {
           enabled: true
         },
-        title: "",
+        title: '',
         series: $scope.stocks,
         xAxis: {
           showFirstLabel: false,
@@ -72,8 +57,21 @@ angular.module('fcc3StockStreamApp')
           enabled: false
         }
       });
-      $scope.arrayLength = $scope.stocks.length
     }
+
+
+    $http.get('/api/stocks/').success(function (stocks) {
+      $scope.stocks = stocks;
+      socket.syncUpdates('stock', $scope.stocks, function () {
+        setTimeout(function () {
+          refreshChart();
+        }, 500);
+      });
+      refreshChart();
+    });
+
+
+    $scope.stocks = [];
 
     $scope.addStock = function () {
       if ($scope.newStock === '') {
@@ -90,10 +88,10 @@ angular.module('fcc3StockStreamApp')
         }
       }).success(function (stockData) {
         var newStockInfo = {
-          type: "line",
+          type: 'line',
           name: $scope.newStock,
           data: stockData.data.map(function (arr) {
-            return [$filter('date')(arr[0], 'longDate'), arr[4]]
+            return [$filter('date')(arr[0], 'longDate'), arr[4]];
           }),
           marker: {
             enabled: false
@@ -103,14 +101,14 @@ angular.module('fcc3StockStreamApp')
 
         $http.post('/api/stocks', newStockInfo).success(function () {
           $scope.newStock = '';
-          showStocks();
-        })
+          refreshChart();
+        });
       });
     };
 
     $scope.deleteStock = function (stock) {
       $http.delete('/api/stocks/' + stock._id).success(function () {
-        showStocks();
+        refreshChart();
       });
     };
 
@@ -121,7 +119,7 @@ angular.module('fcc3StockStreamApp')
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
-    }
+    };
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
